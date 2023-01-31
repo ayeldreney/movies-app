@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/screens/searchScreen.dart';
 import 'package:movies/screens/watchlist_screen.dart';
 
-import '../list_of_movies.dart';
-import '../mytheme/theme.dart';
-import '../provider/bot_nav_bar_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:movies/list_of_movies.dart';
+import 'package:movies/mytheme/theme.dart';
 
-import '../screens/browse_category_screen.dart';
+import 'package:movies/screens/browse_category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String ROUTENAME = "homescreen";

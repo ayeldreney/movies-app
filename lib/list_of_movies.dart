@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies/Recommended/recommended_api.dart';
-
-import 'Popular/popular_api.dart';
-import 'Release_Latest/release_api.dart';
+import 'package:movies/modules/movies screens/Recommended/recommended_api.dart';
+import 'package:movies/modules/movies%20screens/Popular/popular_api.dart';
+import 'package:movies/modules/movies screens/Release_Latest/release_api.dart';
 
 class ListOfMovies extends StatefulWidget {
   @override
