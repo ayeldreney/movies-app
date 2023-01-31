@@ -1,19 +1,14 @@
-class PopluarMovieResponce {
+class SourceSearchResponce {
   int? page;
   List<Results>? results;
   int? totalPages;
   int? totalResults;
 
-  PopluarMovieResponce({
-    this.page,
-    this.results,
-    this.totalPages,
-    this.totalResults,
-  });
+  SourceSearchResponce(
+      {this.page, this.results, this.totalPages, this.totalResults});
 
-  PopluarMovieResponce.fromJson(Map<String, dynamic> json) {
+  SourceSearchResponce.fromJson(Map<String, dynamic> json) {
     page = json['page'];
-
     if (json['results'] != null) {
       results = <Results>[];
       json['results'].forEach((v) {
@@ -27,7 +22,6 @@ class PopluarMovieResponce {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['page'] = this.page;
-
     if (this.results != null) {
       data['results'] = this.results!.map((v) => v.toJson()).toList();
     }
