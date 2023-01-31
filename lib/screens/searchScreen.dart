@@ -50,8 +50,41 @@ class Search extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
 }
+
+Widget movieConatiner() => Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              child: Image(
+                image: AssetImage('assets/images/browse.png'), //api
+                width: 100,
+                height: 100,
+              ),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              children: [
+                Text("dsajdnaknda"), //api
+                Text("dsajdnaknda"), //api
+                Text("dsajdnaknda"), //api
+              ],
+            ),
+          ],
+        ),
+        Divider(
+          height: 10,
+          color: Colors.white,
+          endIndent: 25,
+          indent: 25,
+        ),
+      ],
+    );
