@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../mytheme/theme.dart';
+import 'package:movies/mytheme/theme.dart';
 
 class Search extends StatelessWidget {
   var textEditingcontroller = TextEditingController();

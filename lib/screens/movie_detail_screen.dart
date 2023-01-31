@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:movies/models/popluar_movie_responce.dart';
 import 'package:movies/network/remote/api_manager.dart';
 
-import '../layout/homeScreen.dart';
+import 'package:movies/layout/homeScreen.dart';
 
-import '../models/details_resonce.dart';
-import '../mytheme/theme.dart';
+import 'package:movies/models/details_resonce.dart';
+import 'package:movies/mytheme/theme.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   static const String ROUTENAME = 'moviescreenDetails';
