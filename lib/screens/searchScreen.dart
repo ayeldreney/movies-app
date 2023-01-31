@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../mytheme/theme.dart';
 
 class Search extends StatelessWidget {
+  var textEditingcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,6 +21,7 @@ class Search extends StatelessWidget {
                 flex: 2,
                 child: Form(
                   child: TextFormField(
+                    controller: textEditingcontroller,
                     style: TextStyle(color: Colors.white),
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
