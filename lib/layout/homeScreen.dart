@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies/modules/searchScreen.dart';
-import 'package:movies/screens/watchlist_screen.dart';
+
+import 'package:movies/screens/search_screen/searchScreen.dart';
+import 'package:movies/screens/watchlist_screen/watchlist_screen.dart';
 
 import 'package:movies/list_of_movies.dart';
 import 'package:movies/mytheme/theme.dart';

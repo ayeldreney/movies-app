@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:movies/mytheme/theme.dart';
+import 'package:movies/network/remote/api_manager.dart';
 
 class Recommended_Container extends StatelessWidget {
   String title;
@@ -31,7 +32,7 @@ class Recommended_Container extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.all(8),
                   child: Image.network(
-                    'https://image.tmdb.org/t/p/w500/$imagePath',
+                    '${ApiManager.baseImageUrl}w500/$imagePath',
                   ),
                 ),
                 Image.asset(

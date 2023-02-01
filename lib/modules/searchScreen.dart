@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/search_response.dart';
 import 'package:movies/network/remote/api_manager.dart';
 
-import '../models/search_responce.dart';
 import '../mytheme/theme.dart';
 
 class Search extends StatefulWidget {
@@ -11,7 +11,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   var textEditingcontroller = TextEditingController();
-  List<SourceSearchResponce> movies = [];
+  List<SearchResponse> movies = [];
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _SearchState extends State<Search> {
           ),
         ),
         FutureBuilder(
-          future: ApiManager.Search(textEditingcontroller.text),
+          future: ApiManager.search(textEditingcontroller.text),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(

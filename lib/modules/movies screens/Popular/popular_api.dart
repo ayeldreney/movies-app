@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/modules/movies screens/Popular/popular_movies.dart';
 import 'package:movies/network/remote/api_manager.dart';
-
 import 'package:movies/models/popluar_movie_responce.dart';
 import 'package:movies/mytheme/theme.dart';
 
@@ -12,7 +11,7 @@ class Popular_Container extends StatelessWidget {
       future: ApiManager.getSources(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
               child: CircularProgressIndicator(
             color: MyTheme.orange,
           ));

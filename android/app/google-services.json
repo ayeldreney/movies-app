@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849745353074",
+    "project_id": "final-movies-project",
+    "storage_bucket": "final-movies-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849745353074:android:b22d0fa197d4f1137e65eb",
+        "android_client_info": {
+          "package_name": "com.example.movies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849745353074-953l5b0o7cklg19j3ectnpvujp9q9o6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-JbLKDx0YFp4MBVRTtnGaPoJc76Em_yY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849745353074-953l5b0o7cklg19j3ectnpvujp9q9o6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

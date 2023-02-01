@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:movies/models/popluar_movie_responce.dart';
+import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/screens/movie_detail_screen.dart';
 
 class Popular_Movie extends StatelessWidget {
@@ -21,7 +22,7 @@ class Popular_Movie extends StatelessWidget {
           child: Stack(
             children: [
               Image.network(
-                'https://image.tmdb.org/t/p/w500/${results.backdropPath}',
+                '${ApiManager.baseImageUrl}w500${results.backdropPath}',
                 height: mediaquery.height * 0.26,
               ),
               Positioned(
@@ -30,10 +31,10 @@ class Popular_Movie extends StatelessWidget {
                   child: Stack(
                     children: [
                       Image.network(
-                        'https://image.tmdb.org/t/p/w500/${results.posterPath}',
+                        '${ApiManager.baseImageUrl}w500/${results.posterPath}',
                         height: mediaquery.height * 0.23,
                       ),
-                      Image.asset('assets/images/bookmark.png')
+                      Image.asset('assets/images/bookmark.png',)
                     ],
                   )),
               Positioned(
