@@ -4,7 +4,7 @@ import '../../models/popluar_movie_responce.dart';
 import 'dart:convert';
 import '../../models/details_resonce.dart';
 import '../../models/recommended_responce.dart';
-import '../../models/search_responce.dart';
+import '../../models/search_response.dart';
 import '../../models/upcomming_responce.dart';
 
 class ApiManager {
@@ -76,14 +76,16 @@ class ApiManager {
     }
   }
 
-  static Future<SourceSearchResponce> Search(String search) async {
+  static Future<SearchResponse> search(String search) async {
     var url = Uri.https(
-        baseUrl, '/3/search/movie', {'api_key': apiKey, 'query': search});
+        baseUrl, '/3/search/movie', {'api_key': apiKey, 'query': search,});
     try {
       var response = await http.get(url);
+      print(response.body);
+      print("---------------------------------------------------");
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
-      var search = SourceSearchResponce.fromJson(json);
+      var search = SearchResponse.fromJson(json);
       return search;
     } catch (e) {
       print(e);
@@ -98,7 +100,6 @@ class ApiManager {
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
       var imageResponse = ImageResponse.fromJson(json);
-      print(imageResponse);
       return imageResponse;
     } catch (e) {
       print(e);

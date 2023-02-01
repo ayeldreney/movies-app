@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:movies/models/popluar_movie_responce.dart';
 import 'package:movies/network/remote/api_manager.dart';
-import 'package:movies/network/remote/firebase_utils.dart';
 import 'package:movies/screens/movie_detail_screen.dart';
 
 class Popular_Movie extends StatelessWidget {
