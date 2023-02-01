@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/modules/movies screens/Recommended/recommended_container.dart';
 import 'package:movies/network/remote/api_manager.dart';
-
 import 'package:movies/models/recommended_responce.dart';
 import 'package:movies/mytheme/theme.dart';
 
@@ -12,7 +11,7 @@ class Recommended_api extends StatelessWidget {
       future: ApiManager.getRecommended(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
               child: CircularProgressIndicator(
             color: MyTheme.orange,
           ));
@@ -49,7 +48,7 @@ class Recommended_api extends StatelessWidget {
                     .bodyLarge
                     ?.copyWith(fontSize: 17),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,

@@ -9,7 +9,7 @@ class Search extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height / 10,
+          height: MediaQuery.of(context).size.height*0.05,
         ),
         Container(
           padding: EdgeInsets.all(8.0),

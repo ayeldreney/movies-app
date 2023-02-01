@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/movie_data.dart';
 import 'package:movies/modules/movies screens/Release_Latest/release_container.dart';
 import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/models/upcomming_responce.dart';
 import 'package:movies/mytheme/theme.dart';
 
-class Release_Latest extends StatelessWidget {
+class ReleaseLatest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<SourceUpcoming>(
       future: ApiManager.getLatest(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
               child: CircularProgressIndicator(
             color: MyTheme.orange,
           ));
         } else if (snapshot.hasError) {
           return Column(
             children: [
-              Text('Something went wrong'),
-              ElevatedButton(onPressed: () {}, child: Text('Trey again'))
+              const Text('Something went wrong'),
+              ElevatedButton(onPressed: () {}, child: const Text('Try again'))
             ],
           );
         }
@@ -28,15 +29,15 @@ class Release_Latest extends StatelessWidget {
           return Column(
             children: [
               Text(snapshot.data?.StatusMessage ?? ''),
-              ElevatedButton(onPressed: () {}, child: Text('Try again'))
+              ElevatedButton(onPressed: () {}, child: const Text('Try again'))
             ],
           );
         }
 //data
         var resultList = snapshot.data?.results ?? [];
         return Container(
-            margin: EdgeInsets.only(left: 13, bottom: 5),
-            padding: EdgeInsets.all(10),
+            margin: const EdgeInsets.only(left: 13, bottom: 5),
+            padding: const EdgeInsets.all(10),
             color: MyTheme.gray,
             width: double.infinity,
             child:
@@ -48,13 +49,15 @@ class Release_Latest extends StatelessWidget {
                     .bodyLarge
                     ?.copyWith(fontSize: 17),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Releases_Container(
-                        imagePath: resultList[index].posterPath ?? '');
+                    return ReleasesContainer(
+                      imagePath: resultList[index].posterPath ?? '',
+                      favouriteMovie: onMovieFavourite(resultList[index]),
+                      );
                   },
                   itemCount: resultList.length,
                 ),
@@ -62,5 +65,15 @@ class Release_Latest extends StatelessWidget {
             ]));
       },
     );
+  }
+
+  MovieData onMovieFavourite(Results addedMovie){
+    Map<String, dynamic>  tmpmap ={
+      "title" : addedMovie.title,
+      "releaseDate": addedMovie.releaseDate,
+      "posterPath": "${ApiManager.baseImageUrl}/w500/${addedMovie.posterPath}",
+    };
+    MovieData movieData = MovieData.fromJson(tmpmap);
+    return movieData;
   }
 }
