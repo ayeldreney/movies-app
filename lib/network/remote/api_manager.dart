@@ -1,4 +1,6 @@
 import 'package:http/http.dart' as http;
+import 'package:movies/models/category_data.dart';
+import 'package:movies/models/genre_movie_response.dart';
 import 'package:movies/models/image_response.dart';
 import '../../models/popluar_movie_responce.dart';
 import 'dart:convert';
@@ -76,9 +78,11 @@ class ApiManager {
     }
   }
 
-  static Future<SearchResponse> search(String search) async {
-    var url = Uri.https(
-        baseUrl, '/3/search/movie', {'api_key': apiKey, 'query': search,});
+  static Future<SearchResponse> querySearch(String search) async {
+    var url = Uri.https(baseUrl, '/3/search/movie', {
+      'api_key': apiKey,
+      'query': search,
+    });
     try {
       var response = await http.get(url);
       print(response.body);
@@ -86,6 +90,27 @@ class ApiManager {
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
       var search = SearchResponse.fromJson(json);
+      return search;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  static Future<genreMovieResponse> idSearch(int? id) async {
+    var url = Uri.https(baseUrl, '/3/discover/movie', {
+      'api_key': apiKey,
+      'sort_by': 'popularity.desc',
+      'include_video': "false",
+      'with_genres': "$id",
+    });
+    try {
+      var response = await http.get(url);
+      print(response.body);
+      print("---------------------------------------------------");
+      var bodyString = response.body;
+      var json = jsonDecode(bodyString);
+      var search = genreMovieResponse.fromJson(json);
       return search;
     } catch (e) {
       print(e);
@@ -110,5 +135,19 @@ class ApiManager {
   static Future<void> getImageBaseUrl() async {
     ImageResponse imageResponse = await getImageInfo();
     baseImageUrl = imageResponse.images?.secureBaseUrl;
+  }
+
+  static Future<GenreResponse> getGenres() async {
+    var url = Uri.https(baseUrl, '/3/genre/movie/list', {'api_key': apiKey});
+    try {
+      var response = await http.get(url);
+      var bodyString = response.body;
+      var json = jsonDecode(bodyString);
+      var genresResponse = GenreResponse.fromJson(json);
+      return genresResponse;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
   }
 }
