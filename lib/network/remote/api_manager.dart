@@ -5,6 +5,7 @@ import 'dart:convert';
 import '../../models/details_resonce.dart';
 import '../../models/recommended_responce.dart';
 import '../../models/search_response.dart';
+import '../../models/similiar.dart';
 import '../../models/upcomming_responce.dart';
 
 class ApiManager {
@@ -92,6 +93,23 @@ class ApiManager {
     } catch (e) {
       print(e);
       rethrow;
+    }
+  }
+
+  static Future<SourceSimilar> getSimilar(num movieId) async {
+    https: //api.themoviedb.org/3/movie/3521/similar?api_key=fb7eef06b1a6f1388c140740a88d5b46&language=en-US&page=1
+    var url = Uri.https(baseUrl, '/3/movie/$movieId/similar', {
+      'api_key': 'fb7eef06b1a6f1388c140740a88d5b46',
+    });
+    try {
+      var response = await http.get(url);
+      var bodyString = response.body;
+      var json = jsonDecode(bodyString); //string
+      var sourceSimilar = SourceSimilar.fromJson(json); //string to json
+      return sourceSimilar;
+    } catch (e) {
+      print(e);
+      throw e;
     }
   }
 

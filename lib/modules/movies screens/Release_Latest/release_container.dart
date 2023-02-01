@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:movies/models/movie_data.dart';
 import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/network/remote/firebase_utils.dart';
+import 'package:movies/screens/movie_detail_screen.dart';
 
 class ReleasesContainer extends StatefulWidget {
   String imagePath;
   bool favourite;
   MovieData favouriteMovie;
 
-  ReleasesContainer({required this.imagePath, required this.favouriteMovie, this.favourite = false});
+  ReleasesContainer(
+      {required this.imagePath,
+      required this.favouriteMovie,
+      this.favourite = false});
 
   @override
   State<ReleasesContainer> createState() => _ReleasesContainerState();
@@ -34,12 +38,12 @@ class _ReleasesContainerState extends State<ReleasesContainer> {
           onTap: () {
             widget.favourite = true;
             addFavouriteMovieToDatabase(widget.favouriteMovie);
-            setState(() {
-
-            });
+            setState(() {});
           },
           child: Image.asset(
-            !widget.favourite?'assets/images/bookmark.png': 'assets/images/favourite.png',
+            !widget.favourite
+                ? 'assets/images/bookmark.png'
+                : 'assets/images/favourite.png',
             height: 27,
           ),
         )

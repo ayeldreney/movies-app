@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 
 import 'package:movies/mytheme/theme.dart';
 import 'package:movies/network/remote/api_manager.dart';
+import 'package:movies/screens/movie_detail_screen.dart';
+
+import '../../../models/recommended_responce.dart';
+import 'Details_recomeded.dart';
 
 class Recommended_Container extends StatelessWidget {
   String title;
   String imagePath;
   String release;
   num vote;
+  Results results;
 
-  Recommended_Container(
-      {required this.title,
-      required this.release,
-      required this.imagePath,
-      required this.vote});
+  Recommended_Container({
+    required this.title,
+    required this.release,
+    required this.imagePath,
+    required this.vote,
+    required this.results,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +34,25 @@ class Recommended_Container extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(8),
-                  child: Image.network(
-                    '${ApiManager.baseImageUrl}w500/$imagePath',
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed(Details_recomended.routeName,
+                    arguments: results);
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    child: Image.network(
+                        'https://image.tmdb.org/t/p/w500/${results.posterPath}',
+                        height: mediaquery.height * 0.16),
                   ),
-                ),
-                Image.asset(
-                  'assets/images/bookmark.png',
-                  height: 27,
-                )
-              ],
+                  Image.asset(
+                    'assets/images/bookmark.png',
+                    height: 27,
+                  )
+                ],
+              ),
             ),
             SizedBox(height: 2),
             Container(
@@ -56,7 +69,7 @@ class Recommended_Container extends StatelessWidget {
                       ),
                       SizedBox(width: 3),
                       Text(
-                        '$vote',
+                        '${results.voteAverage}',
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge
@@ -66,7 +79,7 @@ class Recommended_Container extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    title,
+                    '${results.title}',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme
@@ -75,7 +88,7 @@ class Recommended_Container extends StatelessWidget {
                   ),
                   SizedBox(height: 7),
                   Text(
-                    release,
+                    '${results.releaseDate}',
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium

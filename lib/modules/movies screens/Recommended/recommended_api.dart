@@ -11,7 +11,7 @@ class Recommended_api extends StatelessWidget {
       future: ApiManager.getRecommended(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
+          return Center(
               child: CircularProgressIndicator(
             color: MyTheme.orange,
           ));
@@ -48,12 +48,13 @@ class Recommended_api extends StatelessWidget {
                     .bodyLarge
                     ?.copyWith(fontSize: 17),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return Recommended_Container(
+                        results: resultList[index],
                         title: resultList[index].title ?? '',
                         release: resultList[index].releaseDate ?? '',
                         imagePath: resultList[index].posterPath ?? '',
