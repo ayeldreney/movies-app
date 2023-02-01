@@ -5,7 +5,7 @@ import 'package:movies/screens/watchlist_screen/watchlist_screen.dart';
 import 'package:movies/list_of_movies.dart';
 import 'package:movies/mytheme/theme.dart';
 
-import 'package:movies/screens/browse_category_screen.dart';
+import 'package:movies/screens/browse_category_screen/browse_category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String ROUTENAME = "homescreen";
@@ -20,8 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabs = [
     ListOfMovies(),
     Search(),
-    BrowseCategoryScreen(),
-    WatchListScreen()
+    const BrowseCategoryScreen(),
+    const WatchListScreen()
   ];
 
   @override
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           currentindex = value;
           setState(() {});
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',

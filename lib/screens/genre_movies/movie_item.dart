@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/models/search_response.dart';
 import 'package:movies/network/remote/api_manager.dart';
+
+import 'package:movies/models/genre_movie_response.dart';
 
 class MovieItem extends StatelessWidget {
 
   Results resultMovie;
+  static const String ROUTENAME = "Genre_Movie_Item_Screen";
 
 
   MovieItem({required this.resultMovie});

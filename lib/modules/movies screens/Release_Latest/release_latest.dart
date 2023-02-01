@@ -57,7 +57,7 @@ class ReleaseLatest extends StatelessWidget {
                     return ReleasesContainer(
                       imagePath: resultList[index].posterPath ?? '',
                       favouriteMovie: onMovieFavourite(resultList[index]),
-                      );
+                    );
                   },
                   itemCount: resultList.length,
                 ),
@@ -67,9 +67,9 @@ class ReleaseLatest extends StatelessWidget {
     );
   }
 
-  MovieData onMovieFavourite(Results addedMovie){
-    Map<String, dynamic>  tmpmap ={
-      "title" : addedMovie.title,
+  MovieData onMovieFavourite(Results addedMovie) {
+    Map<String, dynamic> tmpmap = {
+      "title": addedMovie.title,
       "releaseDate": addedMovie.releaseDate,
       "posterPath": "${ApiManager.baseImageUrl}/w500/${addedMovie.posterPath}",
     };
