@@ -62,7 +62,9 @@ class MovieDetailsScreen extends StatelessWidget {
           }
 
           var details = snapshot.data!;
+          var geners = snapshot.data!.genres ?? [];
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
                   'https://image.tmdb.org/t/p/w500/${details.backdropPath}'),
@@ -89,13 +91,13 @@ class MovieDetailsScreen extends StatelessWidget {
                       Image.network(
                         'https://image.tmdb.org/t/p/w500/${details.posterPath}',
                         width: 100,
-                        height: 150,
+                        height: 200,
                       ),
                       Image.asset('assets/images/bookmark.png'),
                     ],
                   ),
                   SizedBox(
-                    width: 15,
+                    width: 50,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,6 +117,20 @@ class MovieDetailsScreen extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.transparent)),
                             ],
+                          ),
+                          MaterialButton(
+                            color: MyTheme.colorBar,
+                            onPressed: () {},
+                            child: Text(
+                              geners[0].name.toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 150,
+                            child: Text(
+                              details.overview.toString(),
+                            ),
                           ),
                           Text(
                             details.voteAverage.toString(),

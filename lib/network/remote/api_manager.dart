@@ -79,10 +79,12 @@ class ApiManager {
 
     try {
       var response = await http.get(url);
+      print(response.statusCode);
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
-      var search = SourceSearchResponce.fromJson(json);
-      return search;
+      SourceSearchResponce sourceSearchResponce =
+          SourceSearchResponce.fromJson(json);
+      return sourceSearchResponce;
     } catch (e) {
       print(e);
       throw e;
