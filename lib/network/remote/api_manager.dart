@@ -78,6 +78,7 @@ class ApiManager {
     }
   }
 
+
   static Future<SearchResponse> querySearch(String search) async {
     var url = Uri.https(baseUrl, '/3/search/movie', {
       'api_key': apiKey,
@@ -122,6 +123,7 @@ class ApiManager {
     var url = Uri.https(baseUrl, '/3/configuration', {'api_key': apiKey});
     try {
       var response = await http.get(url);
+      print(response.statusCode);
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
       var imageResponse = ImageResponse.fromJson(json);

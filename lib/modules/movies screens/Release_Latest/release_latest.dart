@@ -4,6 +4,7 @@ import 'package:movies/modules/movies screens/Release_Latest/release_container.d
 import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/models/upcomming_responce.dart';
 import 'package:movies/mytheme/theme.dart';
+import 'package:movies/screens/movie_detail_screen.dart';
 
 class ReleaseLatest extends StatelessWidget {
   @override
@@ -54,9 +55,14 @@ class ReleaseLatest extends StatelessWidget {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return ReleasesContainer(
-                      imagePath: resultList[index].posterPath ?? '',
-                      favouriteMovie: onMovieFavourite(resultList[index]),
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, MovieDetailsScreen.ROUTENAME);
+                      },
+                      child: ReleasesContainer(
+                          imagePath: resultList[index].posterPath ?? '',
+                          favouriteMovie: onMovieFavourite(resultList[index])),
                     );
                   },
                   itemCount: resultList.length,

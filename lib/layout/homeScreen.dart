@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:movies/screens/search_screen/searchScreen.dart';
 import 'package:movies/screens/watchlist_screen/watchlist_screen.dart';
 

@@ -24,7 +24,6 @@ class Popular_Container extends StatelessWidget {
           );
         }
         if (snapshot.data?.page != 1) {
-// server has code and message
           return Column(
             children: [
               Text(snapshot.data?.StatusMessage ?? ''),
