@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/main_result.dart';
 import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/screens/search_screen/movie_item.dart';
 
@@ -99,7 +100,7 @@ class _SearchState extends State<Search> {
                     );
                   },
                   itemCount: items!.length,
-                  itemBuilder: (context, index) => MovieItem(resultMovie: items[index],),
+                  itemBuilder: (context, index) => MovieItem(resultMovie: MainResults.fromJson(items[index].toJson()),),
                 ),
               );
             },

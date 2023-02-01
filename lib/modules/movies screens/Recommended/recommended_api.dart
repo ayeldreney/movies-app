@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/main_result.dart';
 import 'package:movies/modules/movies screens/Recommended/recommended_container.dart';
 import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/models/recommended_responce.dart';
 import 'package:movies/mytheme/theme.dart';
+import 'package:movies/screens/movie_detail_screen.dart';
 
 class Recommended_api extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SourceRecommended>(
+    return FutureBuilder<RecommendedMoviesResponse>(
       future: ApiManager.getRecommended(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -33,7 +35,7 @@ class Recommended_api extends StatelessWidget {
           );
         }
 //data
-        var resultList = snapshot.data?.results ?? [];
+        var resultList = snapshot.data?.results;
         return Container(
           margin: EdgeInsets.only(left: 15),
           padding: EdgeInsets.all(10),
@@ -42,7 +44,7 @@ class Recommended_api extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Recomemded',
+                'Recommended',
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge
@@ -53,13 +55,18 @@ class Recommended_api extends StatelessWidget {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Recommended_Container(
-                        title: resultList[index].title ?? '',
-                        release: resultList[index].releaseDate ?? '',
-                        imagePath: resultList[index].posterPath ?? '',
-                        vote: resultList[index].voteAverage ?? 0);
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, MovieDetailsScreen.ROUTENAME, arguments: MainResults.fromJson(resultList[index].toJson()));
+                      },
+                      child: Recommended_Container(
+                          title: resultList![index].title!,
+                          release: resultList[index].releaseDate!,
+                          imagePath: resultList[index].posterPath ?? '',
+                          vote: resultList[index].voteAverage!),
+                    );
                   },
-                  itemCount: resultList.length,
+                  itemCount: resultList?.length,
                 ),
               )
             ],

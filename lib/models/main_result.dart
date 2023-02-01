@@ -1,52 +1,5 @@
-class SourceUpcoming {
-  SourceUpcoming(
-      {this.dates,
-      this.page,
-      this.results,
-      this.totalPages,
-      this.totalResults,
-      this.Success,
-      this.StatusMessage});
-
-  SourceUpcoming.fromJson(dynamic json) {
-    dates = json['dates'] != null ? Dates.fromJson(json['dates']) : null;
-    page = json['page'];
-    StatusMessage = json['status_message'];
-    Success = json['success'];
-    if (json['results'] != null) {
-      results = [];
-      json['results'].forEach((v) {
-        results?.add(Results.fromJson(v));
-      });
-    }
-    totalPages = json['total_pages'];
-    totalResults = json['total_results'];
-  }
-  Dates? dates;
-  num? page;
-  List<Results>? results;
-  num? totalPages;
-  num? totalResults;
-  String? StatusMessage;
-  String? Success;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (dates != null) {
-      map['dates'] = dates?.toJson();
-    }
-    map['page'] = page;
-    if (results != null) {
-      map['results'] = results?.map((v) => v.toJson()).toList();
-    }
-    map['total_pages'] = totalPages;
-    map['total_results'] = totalResults;
-    return map;
-  }
-}
-
-class Results {
-  Results({
+class MainResults {
+  MainResults({
     this.adult,
     this.backdropPath,
     this.genreIds,
@@ -63,7 +16,7 @@ class Results {
     this.voteCount,
   });
 
-  Results.fromJson(dynamic json) {
+  MainResults.fromJson(dynamic json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     genreIds = json['genre_ids'] != null ? json['genre_ids'].cast<num>() : [];
@@ -76,7 +29,7 @@ class Results {
     releaseDate = json['release_date'];
     title = json['title'];
     video = json['video'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     voteCount = json['vote_count'];
   }
   bool? adult;
@@ -110,27 +63,6 @@ class Results {
     map['video'] = video;
     map['vote_average'] = voteAverage;
     map['vote_count'] = voteCount;
-    return map;
-  }
-}
-
-class Dates {
-  Dates({
-    this.maximum,
-    this.minimum,
-  });
-
-  Dates.fromJson(dynamic json) {
-    maximum = json['maximum'];
-    minimum = json['minimum'];
-  }
-  String? maximum;
-  String? minimum;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['maximum'] = maximum;
-    map['minimum'] = minimum;
     return map;
   }
 }

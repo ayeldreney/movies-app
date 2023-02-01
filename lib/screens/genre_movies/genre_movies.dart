@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/models/category_data.dart';
+import 'package:movies/models/main_result.dart';
 import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/screens/genre_movies//movie_item.dart';
 
@@ -47,7 +48,7 @@ class GenreMovies extends StatelessWidget {
                       );
                     },
                     itemCount: items!.length,
-                    itemBuilder: (context, index) => MovieItem(resultMovie: items[index],),
+                    itemBuilder: (context, index) => MovieItem(resultMovie: MainResults.fromJson(items[index].toJson()),),
                   ),
                 );
               },

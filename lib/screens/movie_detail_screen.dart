@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies/models/popluar_movie_responce.dart';
+import 'package:movies/models/main_result.dart';
 import 'package:movies/network/remote/api_manager.dart';
-
-import 'package:movies/layout/homeScreen.dart';
-
 import 'package:movies/models/details_resonce.dart';
 import 'package:movies/mytheme/theme.dart';
 
@@ -11,19 +8,13 @@ class MovieDetailsScreen extends StatelessWidget {
   static const String ROUTENAME = 'moviescreenDetails';
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments as Results;
+    var args = ModalRoute.of(context)?.settings.arguments as MainResults;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: Text(
           args.title ?? '',
           style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed(HomeScreen.ROUTENAME);
-          },
         ),
         backgroundColor: Colors.white12,
         elevation: 0,
@@ -33,7 +24,7 @@ class MovieDetailsScreen extends StatelessWidget {
         future: ApiManager.getDetails(args.id ?? 0),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
                 child: CircularProgressIndicator(
               color: MyTheme.orange,
             ));
@@ -60,7 +51,6 @@ class MovieDetailsScreen extends StatelessWidget {
               ],
             );
           }
-
           var details = snapshot.data!;
           var geners = snapshot.data!.genres ?? [];
           return Column(
@@ -68,7 +58,7 @@ class MovieDetailsScreen extends StatelessWidget {
             children: [
               Image.network(
                   'https://image.tmdb.org/t/p/w500/${details.backdropPath}'),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -76,83 +66,79 @@ class MovieDetailsScreen extends StatelessWidget {
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 details.releaseDate ?? '',
                 style: TextStyle(color: Colors.white24),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    children: [
-                      Image.network(
-                        'https://image.tmdb.org/t/p/w500/${details.posterPath}',
-                        width: 100,
-                        height: 200,
-                      ),
-                      Image.asset('assets/images/bookmark.png'),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    "",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent)),
-                            ],
-                          ),
-                          MaterialButton(
-                            color: MyTheme.colorBar,
-                            onPressed: () {},
-                            child: Text(
-                              geners[0].name.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 150,
-                            child: Text(
-                              details.overview.toString(),
-                            ),
-                          ),
-                          Text(
-                            details.voteAverage.toString(),
+              Expanded(
+                child: Row(
+                  children: [
+                    Stack(
+                      children: [
+                        Image.network(
+                          '${ApiManager.baseImageUrl}w500/${details.posterPath}',
+                          width: 100,
+                          height: 150,
+                        ),
+                        Image.asset('assets/images/bookmark.png'),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 50,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  "",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent)),
+                          ],
+                        ),
+                        MaterialButton(
+                          color: MyTheme.colorBar,
+                          onPressed: () {},
+                          child: Text(
+                            geners[0].name.toString(),
                             style: TextStyle(color: Colors.white),
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.yellow,
-                              ),
-                              Text(
-                                '',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ],
+                        ),
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            details.overview.toString(),
+                          ),
+                        ),
+                        Text(
+                          details.voteAverage.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            ),
+                            Text(
+                              '',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
               MoreLikeThisScreen(),
             ],

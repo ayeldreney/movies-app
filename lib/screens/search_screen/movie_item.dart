@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/models/search_response.dart';
+import 'package:movies/models/main_result.dart';
 import 'package:movies/network/remote/api_manager.dart';
+import 'package:movies/screens/movie_detail_screen.dart';
 
 class MovieItem extends StatelessWidget {
 
-  Results resultMovie;
+  MainResults resultMovie;
 
 
   MovieItem({required this.resultMovie});
@@ -17,7 +18,7 @@ class MovieItem extends StatelessWidget {
       //details item
       child: InkWell(
         onTap: () {
-
+          Navigator.pushNamed(context, MovieDetailsScreen.ROUTENAME, arguments: resultMovie);
         },
         child: Row(
           children: [

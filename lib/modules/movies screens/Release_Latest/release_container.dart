@@ -5,16 +5,20 @@ import 'package:movies/network/remote/firebase_utils.dart';
 
 class ReleasesContainer extends StatefulWidget {
   String imagePath;
-  bool favourite;
   MovieData favouriteMovie;
-
-  ReleasesContainer({required this.imagePath, required this.favouriteMovie, this.favourite = false});
+  bool favourite = false;
+  ReleasesContainer({required this.imagePath, required this.favouriteMovie});
 
   @override
   State<ReleasesContainer> createState() => _ReleasesContainerState();
 }
 
 class _ReleasesContainerState extends State<ReleasesContainer> {
+  @override
+  void initState() {
+    widget.favourite = widget.favouriteMovie.wishlisted ?? false;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
@@ -32,8 +36,14 @@ class _ReleasesContainerState extends State<ReleasesContainer> {
         ),
         InkWell(
           onTap: () {
-            widget.favourite = true;
-            addFavouriteMovieToDatabase(widget.favouriteMovie);
+            if(!widget.favourite){
+              widget.favourite = true;
+              widget.favouriteMovie.wishlisted=true;
+              addFavouriteMovieToDatabase(widget.favouriteMovie);
+            }else {
+              widget.favourite = false;
+              deleteMovieFromFirebase(widget.favouriteMovie.title);
+            }
             setState(() {
 
             });

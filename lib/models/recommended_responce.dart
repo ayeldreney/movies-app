@@ -1,5 +1,5 @@
-class SourceRecommended {
-  SourceRecommended(
+class RecommendedMoviesResponse {
+  RecommendedMoviesResponse(
       {this.page,
       this.results,
       this.totalPages,
@@ -7,7 +7,7 @@ class SourceRecommended {
       this.Success,
       this.StatusMessage});
 
-  SourceRecommended.fromJson(dynamic json) {
+  RecommendedMoviesResponse.fromJson(dynamic json) {
     page = json['page'];
     StatusMessage = json['status_message'];
     Success = json['success'];
@@ -71,7 +71,7 @@ class Results {
     releaseDate = json['release_date'];
     title = json['title'];
     video = json['video'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     voteCount = json['vote_count'];
   }
 

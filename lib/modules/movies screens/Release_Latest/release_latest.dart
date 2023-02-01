@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/main_result.dart';
 import 'package:movies/models/movie_data.dart';
 import 'package:movies/modules/movies screens/Release_Latest/release_container.dart';
 import 'package:movies/network/remote/api_manager.dart';
-import 'package:movies/models/upcomming_responce.dart';
+import 'package:movies/models/upcoming_movie_response.dart';
 import 'package:movies/mytheme/theme.dart';
 import 'package:movies/screens/movie_detail_screen.dart';
 
 class ReleaseLatest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SourceUpcoming>(
+    return FutureBuilder<UpcomingMovieResponse>(
       future: ApiManager.getLatest(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -35,7 +36,7 @@ class ReleaseLatest extends StatelessWidget {
           );
         }
 //data
-        var resultList = snapshot.data?.results ?? [];
+        var resultList = snapshot.data?.results;
         return Container(
             margin: const EdgeInsets.only(left: 13, bottom: 5),
             padding: const EdgeInsets.all(10),
@@ -58,14 +59,14 @@ class ReleaseLatest extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         Navigator.pushNamed(
-                            context, MovieDetailsScreen.ROUTENAME);
+                            context, MovieDetailsScreen.ROUTENAME, arguments: MainResults.fromJson(resultList[index].toJson()));
                       },
                       child: ReleasesContainer(
                           imagePath: resultList[index].posterPath ?? '',
-                          favouriteMovie: onMovieFavourite(resultList[index])),
+                          favouriteMovie: onMovieFavourite(resultList[index]),),
                     );
                   },
-                  itemCount: resultList.length,
+                  itemCount: resultList!.length,
                 ),
               )
             ]));
