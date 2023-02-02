@@ -13,6 +13,9 @@ class GenreMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     Genres genre = ModalRoute.of(context)?.settings.arguments as Genres;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       backgroundColor: Colors.transparent,
       body: Container(
         margin: const EdgeInsets.all(10),
