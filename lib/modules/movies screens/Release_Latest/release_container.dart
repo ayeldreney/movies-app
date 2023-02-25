@@ -6,19 +6,28 @@ import 'package:movies/screens/movie_detail_screen.dart';
 
 class ReleasesContainer extends StatefulWidget {
   String imagePath;
-  bool favourite;
   MovieData favouriteMovie;
+<<<<<<< HEAD
 
   ReleasesContainer(
       {required this.imagePath,
       required this.favouriteMovie,
       this.favourite = false});
+=======
+  bool favourite = false;
+  ReleasesContainer({required this.imagePath, required this.favouriteMovie});
+>>>>>>> f597d5e4f6a3dbb23b9b0ecf439ef2e71cc6938b
 
   @override
   State<ReleasesContainer> createState() => _ReleasesContainerState();
 }
 
 class _ReleasesContainerState extends State<ReleasesContainer> {
+  @override
+  void initState() {
+    widget.favourite = widget.favouriteMovie.wishlisted ?? false;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
@@ -36,9 +45,23 @@ class _ReleasesContainerState extends State<ReleasesContainer> {
         ),
         InkWell(
           onTap: () {
+<<<<<<< HEAD
             widget.favourite = true;
             addFavouriteMovieToDatabase(widget.favouriteMovie);
             setState(() {});
+=======
+            if(!widget.favourite){
+              widget.favourite = true;
+              widget.favouriteMovie.wishlisted=true;
+              addFavouriteMovieToDatabase(widget.favouriteMovie);
+            }else {
+              widget.favourite = false;
+              deleteMovieFromFirebase(widget.favouriteMovie.title);
+            }
+            setState(() {
+
+            });
+>>>>>>> f597d5e4f6a3dbb23b9b0ecf439ef2e71cc6938b
           },
           child: Image.asset(
             !widget.favourite

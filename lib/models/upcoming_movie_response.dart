@@ -1,16 +1,15 @@
-class PopularMovieResponse {
-  String? StatusMessage;
-  String? Success;
-  List<Results>? results;
-  PopularMovieResponse(
-      {this.page,
+class UpcomingMovieResponse {
+  UpcomingMovieResponse(
+      {this.dates,
+      this.page,
       this.results,
       this.totalPages,
       this.totalResults,
-      this.StatusMessage,
-      this.Success});
+      this.Success,
+      this.StatusMessage});
 
-  PopularMovieResponse.fromJson(dynamic json) {
+  UpcomingMovieResponse.fromJson(dynamic json) {
+    dates = json['dates'] != null ? Dates.fromJson(json['dates']) : null;
     page = json['page'];
     StatusMessage = json['status_message'];
     Success = json['success'];
@@ -20,28 +19,22 @@ class PopularMovieResponse {
         results?.add(Results.fromJson(v));
       });
     }
-
     totalPages = json['total_pages'];
     totalResults = json['total_results'];
   }
+  Dates? dates;
   num? page;
-
+  List<Results>? results;
   num? totalPages;
   num? totalResults;
-  PopularMovieResponse copyWith({
-    num? page,
-    List<Results>? results,
-    num? totalPages,
-    num? totalResults,
-  }) =>
-      PopularMovieResponse(
-        page: page ?? this.page,
-        results: results ?? this.results,
-        totalPages: totalPages ?? this.totalPages,
-        totalResults: totalResults ?? this.totalResults,
-      );
+  String? StatusMessage;
+  String? Success;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    if (dates != null) {
+      map['dates'] = dates?.toJson();
+    }
     map['page'] = page;
     if (results != null) {
       map['results'] = results?.map((v) => v.toJson()).toList();
@@ -100,38 +93,7 @@ class Results {
   bool? video;
   num? voteAverage;
   num? voteCount;
-  Results copyWith({
-    bool? adult,
-    String? backdropPath,
-    List<num>? genreIds,
-    num? id,
-    String? originalLanguage,
-    String? originalTitle,
-    String? overview,
-    num? popularity,
-    String? posterPath,
-    String? releaseDate,
-    String? title,
-    bool? video,
-    num? voteAverage,
-    num? voteCount,
-  }) =>
-      Results(
-        adult: adult ?? this.adult,
-        backdropPath: backdropPath ?? this.backdropPath,
-        genreIds: genreIds ?? this.genreIds,
-        id: id ?? this.id,
-        originalLanguage: originalLanguage ?? this.originalLanguage,
-        originalTitle: originalTitle ?? this.originalTitle,
-        overview: overview ?? this.overview,
-        popularity: popularity ?? this.popularity,
-        posterPath: posterPath ?? this.posterPath,
-        releaseDate: releaseDate ?? this.releaseDate,
-        title: title ?? this.title,
-        video: video ?? this.video,
-        voteAverage: voteAverage ?? this.voteAverage,
-        voteCount: voteCount ?? this.voteCount,
-      );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['adult'] = adult;
@@ -148,6 +110,27 @@ class Results {
     map['video'] = video;
     map['vote_average'] = voteAverage;
     map['vote_count'] = voteCount;
+    return map;
+  }
+}
+
+class Dates {
+  Dates({
+    this.maximum,
+    this.minimum,
+  });
+
+  Dates.fromJson(dynamic json) {
+    maximum = json['maximum'];
+    minimum = json['minimum'];
+  }
+  String? maximum;
+  String? minimum;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['maximum'] = maximum;
+    map['minimum'] = minimum;
     return map;
   }
 }

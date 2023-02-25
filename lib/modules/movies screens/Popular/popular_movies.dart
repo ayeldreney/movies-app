@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/main_result.dart';
 
-import 'package:movies/models/popluar_movie_responce.dart';
 import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/screens/movie_detail_screen.dart';
 
 class Popular_Movie extends StatelessWidget {
-  Results results;
+  MainResults results;
 
   Popular_Movie({required this.results});
 

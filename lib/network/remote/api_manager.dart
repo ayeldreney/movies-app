@@ -1,4 +1,6 @@
 import 'package:http/http.dart' as http;
+import 'package:movies/models/category_data.dart';
+import 'package:movies/models/genre_movie_response.dart';
 import 'package:movies/models/image_response.dart';
 import '../../models/popluar_movie_responce.dart';
 import 'dart:convert';
@@ -6,14 +8,14 @@ import '../../models/details_resonce.dart';
 import '../../models/recommended_responce.dart';
 import '../../models/search_response.dart';
 import '../../models/similiar.dart';
-import '../../models/upcomming_responce.dart';
+import '../../models/upcoming_movie_response.dart';
 
 class ApiManager {
   static const String baseUrl = 'api.themoviedb.org';
   static const String apiKey = 'de050c5fef6898173ea6490ff900b127';
   static String? baseImageUrl;
 
-  static Future<SourcePopuler> getSources() async {
+  static Future<PopularMovieResponse> getPopularMovies() async {
     var url = Uri.https(baseUrl, '/3/movie/popular', {
       'api_key': apiKey,
     });
@@ -21,7 +23,7 @@ class ApiManager {
       var response = await http.get(url);
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
-      var sourcePopular = SourcePopuler.fromJson(json);
+      var sourcePopular = PopularMovieResponse.fromJson(json);
       return sourcePopular;
     } catch (e) {
       print(e);
@@ -29,15 +31,16 @@ class ApiManager {
     }
   }
 
-  static Future<SourceUpcoming> getLatest() async {
+  static Future<UpcomingMovieResponse> getLatest() async {
     var url = Uri.https(baseUrl, '/3/movie/upcoming', {
       'api_key': apiKey,
     });
     try {
       var response = await http.get(url);
+      print(response.body);
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
-      var sourceUpcoming = SourceUpcoming.fromJson(json);
+      var sourceUpcoming = UpcomingMovieResponse.fromJson(json);
       return sourceUpcoming;
     } catch (e) {
       print(e);
@@ -45,7 +48,7 @@ class ApiManager {
     }
   }
 
-  static Future<SourceRecommended> getRecommended() async {
+  static Future<RecommendedMoviesResponse> getRecommended() async {
     var url = Uri.https(baseUrl, '/3/movie/top_rated', {
       'api_key': apiKey,
     });
@@ -53,7 +56,7 @@ class ApiManager {
       var response = await http.get(url);
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
-      var sourceRecommended = SourceRecommended.fromJson(json);
+      var sourceRecommended = RecommendedMoviesResponse.fromJson(json);
       return sourceRecommended;
     } catch (e) {
       print(e);
@@ -77,7 +80,7 @@ class ApiManager {
     }
   }
 
-  static Future<SearchResponse> search(String search) async {
+  static Future<SearchResponse> querySearch(String search) async {
     var url = Uri.https(baseUrl, '/3/search/movie', {
       'api_key': apiKey,
       'query': search,
@@ -131,5 +134,19 @@ class ApiManager {
   static Future<void> getImageBaseUrl() async {
     ImageResponse imageResponse = await getImageInfo();
     baseImageUrl = imageResponse.images?.secureBaseUrl;
+  }
+
+  static Future<GenreResponse> getGenres() async {
+    var url = Uri.https(baseUrl, '/3/genre/movie/list', {'api_key': apiKey});
+    try {
+      var response = await http.get(url);
+      var bodyString = response.body;
+      var json = jsonDecode(bodyString);
+      var genresResponse = GenreResponse.fromJson(json);
+      return genresResponse;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
   }
 }

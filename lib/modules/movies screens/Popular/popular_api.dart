@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/main_result.dart';
 import 'package:movies/modules/movies screens/Popular/popular_movies.dart';
 import 'package:movies/network/remote/api_manager.dart';
 import 'package:movies/models/popluar_movie_responce.dart';
@@ -7,8 +8,8 @@ import 'package:movies/mytheme/theme.dart';
 class Popular_Container extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SourcePopuler>(
-      future: ApiManager.getSources(),
+    return FutureBuilder<PopularMovieResponse>(
+      future: ApiManager.getPopularMovies(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -32,15 +33,15 @@ class Popular_Container extends StatelessWidget {
           );
         }
 //data
-        var resultList = snapshot.data?.results ?? [];
+        List<Results>? resultList = snapshot.data?.results;
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Popular_Movie(
-              results: resultList[index],
+              results: MainResults.fromJson(resultList[index].toJson()),
             );
           },
-          itemCount: resultList.length,
+          itemCount: resultList!.length,
         );
       },
     );
